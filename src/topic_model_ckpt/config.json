@@ -1,0 +1,58 @@
+{
+  "calculate_probabilities": true,
+  "language": null,
+  "low_memory": false,
+  "min_topic_size": 10,
+  "n_gram_range": [
+    1,
+    1
+  ],
+  "nr_topics": null,
+  "seed_topic_list": [
+    [
+      "Advisory",
+      "Recommending",
+      "Cautioning",
+      "Prescriptive",
+      "Guiding",
+      "Prescriptive"
+    ],
+    [
+      "Personal",
+      "Narrative",
+      "Introspective",
+      "Exemplary",
+      "Insightful",
+      "Emotional"
+    ],
+    [
+      "Clinical",
+      "Scientific",
+      "Informative",
+      "Educational",
+      "Factual",
+      "Informing",
+      "Academic",
+      "Analytical"
+    ],
+    [
+      "Diagnostic",
+      "Explanatory",
+      "Causal",
+      "Due to",
+      "Resulting from",
+      "Attributable to"
+    ],
+    [
+      "Inquiry",
+      "Rhetorical",
+      "Exploratory Questioning",
+      "Clarifying Inquiry",
+      "Problem-Solving Deliberation"
+    ]
+  ],
+  "top_n_words": 10,
+  "verbose": false,
+  "zeroshot_min_similarity": 0.7,
+  "zeroshot_topic_list": null
+}

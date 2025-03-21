@@ -1,0 +1,81 @@
+{
+  "llm_summary": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Summarize the following content according to the perspective and the asked question. The abstractive summary created should detect the spans in the different answers describing the particular perspective. Utilize the definition of the perspective and the tone information for accurate summary generation.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "The question"
+        },
+        {
+          "prefix": "Answers:",
+          "description": "The answers to the question asked which needs to be summarized"
+        },
+        {
+          "prefix": "Perspective:",
+          "description": "The Perspective for which the summary needs to attuned to"
+        },
+        {
+          "prefix": "Perspective Definition:",
+          "description": "defines the semantic of the particular perspective that helps the model understand the specific medical context"
+        },
+        {
+          "prefix": "Tone Attribute:",
+          "description": "The tone reflects the stylistic approach the summary should take."
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Gen Summary:",
+          "description": "The generated summary"
+        }
+      ]
+    },
+    "extended_signature": {
+      "instructions": "Summarize the following content according to the perspective and the asked question. The abstractive summary created should detect the spans in the different answers describing the particular perspective. Utilize the definition of the perspective and the tone information for accurate summary generation.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "The question"
+        },
+        {
+          "prefix": "Answers:",
+          "description": "The answers to the question asked which needs to be summarized"
+        },
+        {
+          "prefix": "Perspective:",
+          "description": "The Perspective for which the summary needs to attuned to"
+        },
+        {
+          "prefix": "Perspective Definition:",
+          "description": "defines the semantic of the particular perspective that helps the model understand the specific medical context"
+        },
+        {
+          "prefix": "Tone Attribute:",
+          "description": "The tone reflects the stylistic approach the summary should take."
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Gen Summary:",
+          "description": "The generated summary"
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12.7",
+      "dspy": "2.5.43",
+      "cloudpickle": "3.1.0"
+    }
+  }
+}
