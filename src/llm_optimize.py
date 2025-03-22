@@ -4,6 +4,14 @@ import pandas as pd
 
 from metrics import *
 from signature import *
+
+from config import *
+
+import dspy
+from dspy.datasets import DataLoader
+from dspy.evaluate import Evaluate
+from dspy.teleprompt import MIPROv2
+
             
 def sample_data(path:str,num_samps:int):
     random.seed(42)
@@ -51,5 +59,19 @@ class Model(dspy.Module):
     
     
 if __name__=="__main__":
-    llm = dspy.LM(model='ollama/llama3.2',max_tokens=10000)
-    dspy.configure(lm=llm)
+    
+    args=llm_params()
+    
+    model = dspy.LM(model=args.model,max_tokens=args.tokens)
+    dspy.configure(lm=model)
+    
+    
+    
+    optimizer=MIPROv2(metric=SemanticF1_Summary(decompositional=False),
+                prompt_model=model,task_model=model)
+
+
+    data=sample_data(args.data)
+
+    compiled_program = optimizer.compile(model, trainset=data,num_trials=args.num_trials, max_bootstrapped_demos=args.max_bootstrapped,
+                                        max_labeled_demos=args.max_demos)

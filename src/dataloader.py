@@ -1,11 +1,12 @@
 import json  
+import os
 import pandas as pd
 from collections import defaultdict
 from typing import Optional
 
 import torch
 import dspy
-from torch.utils.data import Dataset, DataLoader
+#from torch.utils.data import Dataset, DataLoader
 from transformers import BartTokenizer, BartForConditionalGeneration,AutoModelForSeq2SeqLM, AutoTokenizer, T5Tokenizer, T5ForConditionalGeneration
 
 import dspy
@@ -135,16 +136,26 @@ def topic_dataset(data_path:str):
 
 
 def llm_dataset(data: pd.DataFrame, 
-                path: Optional[str]=None,
-                save:bool=False):
+                path: Optional[str]=None):
     
     dl = DataLoader()
-    df_llm=defaultdict(list)
-    
-    
-    if save:
+
+    if os.path.exists(path):
+        
+        llm_dataset = dl.from_csv(
+            path,
+            input_keys=('question','answers','perspective','perspective_definition','tone_attribute')
+        )
+        
+        return llm_dataset
+                    
+    else:
+        
+        df_llm=defaultdict(list)
+
+        
         for idx,row in data.iterrows():
-            
+        
             summary_lbls=len(row['labelled_summaries'].items())
 
             ans=' '.join(a for a in row['answers'])
@@ -205,39 +216,22 @@ def llm_dataset(data: pd.DataFrame,
                     
                     df_llm['perspective_definition'].append(defn)
                     df_llm['tone_attribute'].append(tone_attribute)
-
-
-        if os.path.exists(path):
-            
-            llm_dataset = dl.from_csv(
-                path,
-                input_keys=('question','answers','perspective','perspective_definition','tone_attribute')
-            )
-            
-                    
-        else:
-            pd.DataFrame(dict(df_llm)).to_csv(path,index=False)
-            
-            llm_dataset = dl.from_csv(
-                path,
-                input_keys=('question','answers','perspective','perspective_definition','tone_attribute')            
-            )
-            
-        return llm_dataset
         
-    else:
-        examples=[]
-        for idx,row in data.iterrows():
-            
-            input=dspy.Example(question=row['question'],answers=row['answers'],
-                        summaries=row['summaries'],perspective=row['perspective'],
-                        perspective_definition=row['perspective_definition'],tone_attribute=row['tone_attribute'])\
-                            .with_inputs('question','answers','perspective',
-                                        'perspective_definition','tone_attribute')
-                            
-            examples.append(input)
-            
-        return examples
+        
+        
+        pd.DataFrame(dict(df_llm)).to_csv(path,index=False)
+        
+        llm_dataset = dl.from_csv(
+            path,
+            input_keys=('question','answers','perspective','perspective_definition','tone_attribute')            
+        )
+        
+        return llm_dataset
+
 
 if __name__=="__main__":
-    pass
+    args=llm_params()
+    
+    train=pd.read_json(args.json_data)
+    
+    trainset=llm_dataset(train,args.data)    
