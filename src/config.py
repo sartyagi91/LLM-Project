@@ -8,15 +8,18 @@ argument parser section to parse arguments to varied functions and classes in th
 """
 
 
-def save_paths():
+def llm_params():
     
-    path_dict={
-        'llm_data':'../data/llm_train.csv',
+    llm={
+        
+        'json_data':'../data/train.json',
+
+        'data':'../data/llm_train.csv',
         'model':'ollama/llama3.2'
     }
     
     
-    return edict(path_dict)
+    return edict(llm)
 
 
 

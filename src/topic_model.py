@@ -13,7 +13,7 @@ from hdbscan import HDBSCAN
 
 from dataloader import *
 from config import *
-
+from args import * 
 
 
 def model(train_path:str,
@@ -80,33 +80,5 @@ def model(train_path:str,
 
 if __name__=="__main__":
 
-    # Create an argument parser
-    parser = argparse.ArgumentParser()
-
-    # Boolean argument for saving or loading a model
-    parser.add_argument(
-        '--save_model',
-        action='store_true',  # If this flag is provided, it sets save_model to True
-        help="Flag to indicate whether to save the model"
-    )
-
-    # Checkpoint directory argument
-    parser.add_argument(
-        '--checkpoint_dir',
-        type=str,
-        default='/Users/sarthaktyagi/Desktop/naacl shared task/src/topic_model_ckpt',  
-        help="Directory to save or load the model checkpoints (default: 'checkpoints/')"
-    )
-    
-    parser.add_argument(
-        '--data_dir',
-        type=str,
-        default='/Users/sarthaktyagi/Desktop/naacl shared task/data/train.json',  
-        help="load the dataset"
-    )
-    
-    
-    # Parse the arguments
-    args = parser.parse_args()
-
+    args=topic_model_args()
     model(args.data_dir,args.save_model,args.checkpoint_dir)
